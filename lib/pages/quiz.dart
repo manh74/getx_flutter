@@ -3,9 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+
 import 'package:the_quiz_app_getx/controllers/quiz_controller.dart';
-import 'package:the_quiz_app_getx/utils/icons/app_icons.dart';
-import 'package:the_quiz_app_getx/widgets/quiz/question_card.dart';
+import 'package:the_quiz_app_getx/utils/colors.dart';
+import 'package:the_quiz_app_getx/widgets/quiz/current_question_title.dart';
+import 'package:the_quiz_app_getx/widgets/quiz/next_button.dart';
+import 'package:the_quiz_app_getx/widgets/quiz/options.dart';
+import 'package:the_quiz_app_getx/widgets/quiz/current_question_index.dart';
 
 class Quiz extends StatelessWidget {
   final quizController = Get.find<QuizController>();
@@ -16,150 +20,44 @@ class Quiz extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
-        backgroundColor: Color(0xFF26294B),
+        backgroundColor: AppColors.PRIMARY_COLOR,
         actions: [
           IconButton(
-            icon: Icon(Icons.close),
+            icon: Icon(
+              Icons.close,
+              color: Colors.white,
+            ),
             onPressed: () {
-              Get.back();
+              Get.toNamed('/');
             },
           ),
         ],
       ),
-      backgroundColor: Color(0xFF26294B),
-      body: quizController.isLoading.value
-          ? SpinKitFadingCube(color: Colors.white)
-          : _buildQuestionBox(context),
+      backgroundColor: AppColors.PRIMARY_COLOR,
+      body: Obx(
+        () => quizController.isLoading.value
+            ? SpinKitFadingCube(color: Colors.white)
+            : _buildQuestionBox(context),
+      ),
     );
   }
 
   Widget _buildQuestionBox(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
 
     const oneSec = const Duration(seconds: 1);
-    Timer timer = Timer.periodic(oneSec, (Timer timer) {
+    Timer timer;
+    timer = Timer.periodic(oneSec, (Timer timer) {
       quizController.answerTimeCount++;
+      print(quizController.answerTimeCount);
     });
 
-    return Obx(
-      () => Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Question ${quizController.currentQuestionIndex}",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline4!
-                    .copyWith(color: Colors.white),
-              ),
-              Text(
-                "/ ${quizController.quizLength}",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6!
-                    .copyWith(color: Colors.white),
-              ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: questionSection(quizController.currentQuestion.question),
-          ),
-          ListView.builder(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: 4,
-            itemBuilder: (context, i) {
-              return optionsSection(size,
-                  "${quizController.currentQuestion.questionOptions[i]}", i);
-            },
-          ),
-          SizedBox(
-            width: 300,
-            child: OutlinedButton(
-              onPressed: () {
-                quizController.onNextAction(timer);
-              },
-              child: Text(
-                "NEXT",
-                style: TextStyle(color: Colors.white),
-              ),
-              style: OutlinedButton.styleFrom(
-                primary: Colors.white,
-                backgroundColor: quizController.optionSelected.isEmpty
-                    ? Color(0xFF9E9E9E)
-                    : Colors.red,
-                padding: EdgeInsets.all(30),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(30),
-                  ),
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget optionsSection(Size size, dynamic option, int index) {
-    return Padding(
-      padding: EdgeInsets.all(10),
-      child: SizedBox(
-        width: size.width,
-        child: OutlinedButton(
-          onPressed: () {
-            quizController.optionSelected.value = option;
-            print(quizController.optionSelected);
-          },
-          style: OutlinedButton.styleFrom(
-            primary: quizController.optionSelected.isEmpty
-                ? Color(0xFF9E9E9E)
-                : Colors.red,
-            shadowColor: quizController.optionSelected.isEmpty
-                ? Colors.white
-                : Colors.red,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(30),
-              ),
-            ),
-            side: BorderSide(
-              color: quizController.optionSelected.isEmpty
-                  ? Colors.white
-                  : Colors.red,
-            ),
-            padding: EdgeInsets.all(30),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: Text(
-                  option,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: quizController.optionSelected.isEmpty
-                        ? Colors.white
-                        : Colors.red,
-                  ),
-                ),
-              ),
-              Icon(
-                quizController.optionSelected.isEmpty
-                    ? MyFlutterApp.circle_empty
-                    : MyFlutterApp.ok_circled,
-                color: quizController.optionSelected.isEmpty
-                    ? Colors.white
-                    : Colors.red,
-              )
-            ],
-          ),
-        ),
-      ),
+    return Column(
+      children: [
+        QuestionIndex(quizController: quizController),
+        CurrentQuestionTitle(quizController: quizController),
+        Options(quizController: quizController),
+        NextButton(quizController: quizController, timer: timer),
+      ],
     );
   }
 }

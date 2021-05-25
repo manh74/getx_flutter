@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:the_quiz_app_getx/routes.dart';
 import 'package:the_quiz_app_getx/utils/colors.dart';
 
-import 'controllers/quiz_controller.dart';
-
 void main() {
   runApp(MyApp());
 }

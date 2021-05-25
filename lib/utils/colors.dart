@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // ignore: non_constant_identifier_names
-  static final MaterialColor PRIMARY_COLOR = _factoryColor(0xff2B3340);
+  static final MaterialColor PRIMARY_COLOR = _factoryColor(0xFF26294B);
 
   // ignore: non_constant_identifier_names
   static final MaterialColor LIGHT = _factoryColor(0xfff4f4f8);

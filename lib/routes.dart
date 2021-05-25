@@ -5,7 +5,7 @@ import 'package:the_quiz_app_getx/pages/result.dart';
 import 'package:the_quiz_app_getx/pages/welcome.dart';
 
 routes() => [
-  GetPage(name: "/", page: () => Welcome()),
-  GetPage(name: "/quiz", page: () => Quiz()),
-  GetPage(name: "/result", page: () => Result()),
-];
+      GetPage(name: "/", page: () => Welcome()),
+      GetPage(name: "/quiz", page: () => Quiz()),
+      GetPage(name: "/result", page: () => Result()),
+    ];

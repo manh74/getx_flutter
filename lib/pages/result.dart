@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:the_quiz_app_getx/controllers/quiz_controller.dart';
+import 'package:the_quiz_app_getx/utils/colors.dart';
 import 'package:the_quiz_app_getx/widgets/box_decoration.dart';
 
 class Result extends StatelessWidget {
@@ -10,51 +11,44 @@ class Result extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String title, message, image;
-
-    Size size = MediaQuery.of(context).size;
-
-    image = 'assets/images/congrats.png';
-    title = 'Congratulation!';
-    message = 'You are amazing!';
-
     return Material(
-      child: Column(children: <Widget>[
-        Container(
-          height: size.height,
-          width: size.width,
-          color: Color(0xFF26294B),
-          child: ListView(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
+      child: Column(
+        children: <Widget>[
+          Container(
+            height: Get.size.height,
+            width: Get.size.width,
+            color: AppColors.PRIMARY_COLOR,
+            child: ListView(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
                       margin: EdgeInsets.only(
                           left: 30,
                           right: 30,
-                          top: size.width / 3,
-                          bottom: size.width / 3),
+                          top: Get.size.width / 3,
+                          bottom: Get.size.width / 3),
                       padding: EdgeInsets.all(10),
                       alignment: Alignment.center,
                       decoration: myBoxDecoration(),
                       child: Column(
                         children: <Widget>[
                           Image.asset(
-                            image,
+                            quizController.imageAchievement.value,
                           ),
                           Text(
-                            title,
+                            quizController.titleAchievement.value,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 24),
                           ),
                           Text(
-                            message,
+                            quizController.messageAchievement.value,
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.black87),
                           ),
                           Text(
-                            "${quizController.answerTimeCount} correct answers in ${quizController.answerTimeCount} seconds.",
+                            "${quizController.correctAnswer} correct answers in ${quizController.answerTimeCount} seconds.",
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.black87),
                           ),
@@ -81,13 +75,15 @@ class Result extends StatelessWidget {
                             ),
                           )
                         ],
-                      )),
-                ],
-              )
-            ],
-          ),
-        )
-      ]),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

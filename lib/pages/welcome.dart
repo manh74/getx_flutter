@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:the_quiz_app_getx/controllers/quiz_controller.dart';
 
 class Welcome extends StatelessWidget {
