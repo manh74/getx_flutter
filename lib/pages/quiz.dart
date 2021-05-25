@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:the_quiz_app_getx/controllers/quiz_controller.dart';
-
 import 'package:the_quiz_app_getx/utils/icons/app_icons.dart';
 import 'package:the_quiz_app_getx/widgets/quiz/question_card.dart';
 
@@ -40,38 +39,41 @@ class Quiz extends StatelessWidget {
     const oneSec = const Duration(seconds: 1);
     Timer timer = Timer.periodic(oneSec, (Timer timer) {
       quizController.answerTimeCount++;
-      print(quizController.answerTimeCount);
     });
-
 
     return Obx(
       () => Column(
         children: [
-          Text.rich(
-            TextSpan(
-              text: "Question ${quizController.currentQuestionIndex}",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline4!
-                  .copyWith(color: Colors.white),
-              children: [
-                TextSpan(
-                    text: "/ ${quizController.quizLength}",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(color: Colors.white))
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Question ${quizController.currentQuestionIndex}",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4!
+                    .copyWith(color: Colors.white),
+              ),
+              Text(
+                "/ ${quizController.quizLength}",
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .copyWith(color: Colors.white),
+              ),
+            ],
           ),
-
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: questionSection(quizController.currentQuestion.question),
+          ),
           ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             itemCount: 4,
             itemBuilder: (context, i) {
-              //${homeController.currentQuestion.question}
-              return optionsSection(size, "Option $i", i);
+              return optionsSection(size,
+                  "${quizController.currentQuestion.questionOptions[i]}", i);
             },
           ),
           SizedBox(
@@ -103,8 +105,7 @@ class Quiz extends StatelessWidget {
     );
   }
 
-  Widget optionsSection(
-      Size size, dynamic option, int index) {
+  Widget optionsSection(Size size, dynamic option, int index) {
     return Padding(
       padding: EdgeInsets.all(10),
       child: SizedBox(
@@ -115,17 +116,21 @@ class Quiz extends StatelessWidget {
             print(quizController.optionSelected);
           },
           style: OutlinedButton.styleFrom(
-            primary:
-                quizController.optionSelected.isEmpty ? Color(0xFF9E9E9E) : Colors.red,
-            shadowColor:
-                quizController.optionSelected.isEmpty ? Colors.white : Colors.red,
+            primary: quizController.optionSelected.isEmpty
+                ? Color(0xFF9E9E9E)
+                : Colors.red,
+            shadowColor: quizController.optionSelected.isEmpty
+                ? Colors.white
+                : Colors.red,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(30),
               ),
             ),
             side: BorderSide(
-              color: quizController.optionSelected.isEmpty ? Colors.white : Colors.red,
+              color: quizController.optionSelected.isEmpty
+                  ? Colors.white
+                  : Colors.red,
             ),
             padding: EdgeInsets.all(30),
           ),
@@ -137,8 +142,9 @@ class Quiz extends StatelessWidget {
                   option,
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                    color:
-                        quizController.optionSelected.isEmpty ? Colors.white : Colors.red,
+                    color: quizController.optionSelected.isEmpty
+                        ? Colors.white
+                        : Colors.red,
                   ),
                 ),
               ),
@@ -146,7 +152,9 @@ class Quiz extends StatelessWidget {
                 quizController.optionSelected.isEmpty
                     ? MyFlutterApp.circle_empty
                     : MyFlutterApp.ok_circled,
-                color: quizController.optionSelected.isEmpty ? Colors.white : Colors.red,
+                color: quizController.optionSelected.isEmpty
+                    ? Colors.white
+                    : Colors.red,
               )
             ],
           ),

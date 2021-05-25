@@ -2,33 +2,35 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:get/get.dart';
-
 import 'package:http/http.dart' as http;
-
 import 'package:the_quiz_app_getx/models/quiz.model.dart';
 
 class QuizController extends GetxController {
-  var quiz =<QuizModel>[].obs;
+  var quizList = <QuizModel>[].obs;
 
   var isLoading = true.obs;
 
-
-  int get quizLength => quiz.length;
-  RxInt currentQuestionIndex = 0.obs;
+  int get quizLength => quizList.length;
+  var currentQuestionIndex = 0.obs;
   RxInt answerTimeCount = 0.obs;
   var optionSelected = ''.obs;
 
-  QuizModel get currentQuestion => quiz[currentQuestionIndex.value];
+  QuizModel get currentQuestion => quizList[currentQuestionIndex.value];
+
+  @override
+  void onInit() {
+    loadQuizes();
+    super.onInit();
+  }
 
   @override
   Future<void> onReady() async {
     print(isLoading);
-    await loadQuizes();
     super.onReady();
   }
 
   void onNextAction(Timer timer) {
-    if(optionSelected.isEmpty) return;
+    if (optionSelected.isEmpty) return;
 
     if (currentQuestionIndex < 9) {
       currentQuestionIndex++;
@@ -52,19 +54,16 @@ class QuizController extends GetxController {
     var url = Uri.parse(
         "https://opentdb.com/api.php?amount=10&category=18&type=multiple");
     var response = await http.get(url);
-    print(response.statusCode);
 
     if (response.statusCode == 200) {
       var quiz = json.decode(response.body)['results'];
       List<QuizModel> quizs = List<QuizModel>.from(
         quiz.map((_) => QuizModel.fromJson(_)),
       );
-      print(quizs.length);
+      quizList.value = quizs;
 
-      quiz = quizs;
-
-      print("Q: ${quiz[currentQuestionIndex.value].question}");
       isLoading.value = false;
+      print('quizList.length ----> ${quizList.length}');
     } else {
       throw Exception("Error");
     }
