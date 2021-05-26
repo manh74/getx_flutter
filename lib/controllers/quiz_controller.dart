@@ -15,6 +15,8 @@ class QuizController extends GetxController {
   RxInt answerTimeCount = 0.obs;
   var optionSelected = ''.obs;
 
+  List<bool> options = [false, false, false, false].obs;
+
   var titleAchievement = ''.obs;
   var messageAchievement = ''.obs;
   var imageAchievement = ''.obs;
@@ -66,35 +68,39 @@ class QuizController extends GetxController {
       correctAnswer++;
     }
 
+    optionSelected.value = '';
+    clearAllOption();
+
     if (currentQuestionIndex < 9) {
       currentQuestionIndex++;
       numberCurrentQuestion++;
-      optionSelected = ''.obs;
-      update();
     } else {
-      timer.cancel();
       setAchievement();
       Get.toNamed("/result");
+      timer.cancel();
     }
   }
 
+  void onOptionIsSelected(int _index) {
+    clearAllOption();
+    options[_index] = true;
+    update();
+  }
+
+  void clearAllOption() {
+    options.replaceRange(0, options.length, [false, false, false, false]);
+  }
+
   void onPlayAgain() {
-    currentQuestionIndex = 0.obs;
-    numberCurrentQuestion = 1.obs;
-    answerTimeCount = 0.obs;
-    optionSelected = ''.obs;
+    currentQuestionIndex.value = 0;
+    numberCurrentQuestion.value = 1;
+    answerTimeCount.value = 0;
+    correctAnswer.value = 0;
+    optionSelected.value = '';
     isLoading.value = false;
     Get.toNamed('/');
     loadQuizes();
     update();
-  }
-
-  void timeCounter() {
-    const oneSec = const Duration(seconds: 1);
-    Timer timer = Timer.periodic(oneSec, (Timer timer) {
-      answerTimeCount++;
-      print(answerTimeCount);
-    });
   }
 
   void setAchievement() {

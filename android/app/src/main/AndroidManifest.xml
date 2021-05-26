@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.the.quick.app.the_quiz_app_getx">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="the_quiz_app_getx"
+        android:label="The Quiz App"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -1,16 +1,6 @@
-# the_quiz_app_getx
+<video width="320" height="240" controls src=https://hot-f13-zvc-te-vnso-zn-1.zadn.vn/0c1274288ddb64853dca/8947491634345652716">
 
-A new Flutter application.
+ Your browser does not support the video tag.
 
-## Getting Started
+</video>
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

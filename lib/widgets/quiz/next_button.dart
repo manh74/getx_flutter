@@ -17,26 +17,28 @@ class NextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 300,
-      child: Obx(
-        () => OutlinedButton(
-          onPressed: () {
-            quizController.onNextAction(timer);
-          },
-          child: Text(
-            "NEXT",
-            style: TextStyle(color: Colors.white),
-          ),
-          style: OutlinedButton.styleFrom(
-            primary: Colors.white,
-            backgroundColor: quizController.optionSelected.isEmpty
-                ? Color(0xFF9E9E9E)
-                : Colors.red,
-            padding: EdgeInsets.all(30),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(30),
+    return Align(
+      child: SizedBox(
+        width: Get.size.width - 200,
+        child: Obx(
+          () => OutlinedButton(
+            onPressed: () {
+              quizController.onNextAction(timer);
+            },
+            child: Text(
+              "NEXT",
+              style: TextStyle(color: Colors.white),
+            ),
+            style: OutlinedButton.styleFrom(
+              primary: Colors.white,
+              backgroundColor: quizController.optionSelected.isEmpty
+                  ? Color(0xFF9E9E9E)
+                  : Colors.red,
+              padding: EdgeInsets.all(30),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30),
+                ),
               ),
             ),
           ),

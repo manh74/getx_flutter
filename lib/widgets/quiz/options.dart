@@ -17,6 +17,7 @@ class Options extends StatelessWidget {
     return ListView.builder(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: quizController.optionsLength,
       itemBuilder: (context, i) {
         return Padding(
@@ -28,23 +29,22 @@ class Options extends StatelessWidget {
                 onPressed: () {
                   quizController.optionSelected.value =
                       quizController.currentQuestion.questionOptions[i];
+                  quizController.onOptionIsSelected(i);
                 },
                 style: OutlinedButton.styleFrom(
-                  primary: quizController.optionSelected.isEmpty
+                  primary: quizController.options[i]
                       ? Color(0xFF9E9E9E)
                       : Colors.red,
-                  shadowColor: quizController.optionSelected.isEmpty
-                      ? Colors.white
-                      : Colors.red,
+                  shadowColor:
+                      quizController.options[i] ? Colors.red : Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(30),
                     ),
                   ),
                   side: BorderSide(
-                    color: quizController.optionSelected.isEmpty
-                        ? Colors.white
-                        : Colors.red,
+                    color:
+                    quizController.options[i] ? Colors.red : Colors.white,
                   ),
                   padding: EdgeInsets.all(30),
                 ),
@@ -56,19 +56,16 @@ class Options extends StatelessWidget {
                         "${quizController.currentQuestion.questionOptions[i]}",
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          color: quizController.optionSelected.isEmpty
-                              ? Colors.white
-                              : Colors.red,
+                          color:  quizController.options[i] ? Colors.red : Colors.white,
                         ),
                       ),
                     ),
                     Icon(
-                      quizController.optionSelected.isEmpty
-                          ? MyFlutterApp.circle_empty
-                          : MyFlutterApp.ok_circled,
-                      color: quizController.optionSelected.isEmpty
-                          ? Colors.white
-                          : Colors.red,
+                      quizController.options[i]
+                          ? MyFlutterApp.ok_circled
+                          : MyFlutterApp.circle_empty,
+                      color:
+                          quizController.options[i] ? Colors.red : Colors.white,
                     ),
                   ],
                 ),

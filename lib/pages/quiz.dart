@@ -43,16 +43,14 @@ class Quiz extends StatelessWidget {
   }
 
   Widget _buildQuestionBox(BuildContext context) {
-
     const oneSec = const Duration(seconds: 1);
     Timer timer;
     timer = Timer.periodic(oneSec, (Timer timer) {
       quizController.answerTimeCount++;
-      print(quizController.answerTimeCount);
     });
 
-    return Column(
-      children: [
+    return ListView(
+      children: <Widget>[
         QuestionIndex(quizController: quizController),
         CurrentQuestionTitle(quizController: quizController),
         Options(quizController: quizController),
