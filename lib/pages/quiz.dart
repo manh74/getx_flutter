@@ -12,7 +12,7 @@ import 'package:the_quiz_app_getx/widgets/quiz/options.dart';
 import 'package:the_quiz_app_getx/widgets/quiz/current_question_index.dart';
 
 class Quiz extends StatelessWidget {
-  final quizController = Get.find<QuizController>();
+  final quizController = Get.put(QuizController());
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class Quiz extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () {
-              Get.toNamed('/');
+              quizController.onClose();
             },
           ),
         ],
@@ -47,6 +47,7 @@ class Quiz extends StatelessWidget {
     Timer timer;
     timer = Timer.periodic(oneSec, (Timer timer) {
       quizController.answerTimeCount++;
+      print(quizController.answerTimeCount);
     });
 
     return ListView(

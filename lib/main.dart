@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: AppColors.WHITE,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      defaultTransition: Transition.leftToRightWithFade,
       initialRoute: "/",
       getPages: routes(),
     );

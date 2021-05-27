@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:the_quiz_app_getx/controllers/quiz_controller.dart';
 
 class Welcome extends StatelessWidget {
-  final quizController = Get.put(QuizController());
+  // final quizController = Get.put(QuizController());
 
   @override
   Widget build(BuildContext context) {

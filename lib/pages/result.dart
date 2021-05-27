@@ -44,7 +44,8 @@ class Result extends StatelessWidget {
                         style: TextStyle(color: Colors.black87),
                       ),
                       Text(
-                        "${quizController.correctAnswer} correct answers in ${quizController.answerTimeCount} seconds.",
+                        "${quizController.correctAnswer} correct answers in "
+                        "${quizController.answerTimeCount} seconds.",
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.black87),
                       ),

@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:the_quiz_app_getx/utils/convert_html_to_dart.dart';
 

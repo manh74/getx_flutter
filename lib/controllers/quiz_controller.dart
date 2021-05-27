@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:the_quiz_app_getx/models/quiz.model.dart';
@@ -101,6 +103,29 @@ class QuizController extends GetxController {
     Get.toNamed('/');
     loadQuizes();
     update();
+  }
+
+  @override
+  void onClose() {
+    Get.defaultDialog(
+      title: "Close The Quiz App?",
+      middleText: "Are you sure you want to exit?",
+      backgroundColor: Colors.white,
+      textConfirm: "Yes",
+      confirmTextColor: Colors.blueAccent,
+      onConfirm: () {
+        Future.delayed(
+          const Duration(milliseconds: 1000),
+          () {
+            SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+          },
+        );
+      },
+      textCancel: 'No',
+      cancelTextColor: Colors.red,
+      onCancel: () {},
+    );
+    super.onClose();
   }
 
   void setAchievement() {
