@@ -18,6 +18,7 @@ class Quiz extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        brightness: Brightness.dark,
         automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: AppColors.PRIMARY_COLOR,

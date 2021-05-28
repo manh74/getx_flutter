@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter/material.dart';
@@ -10,15 +11,14 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: AppColors.PRIMARY_COLOR,
+      statusBarBrightness: Brightness.light,
+    ));
     return GetMaterialApp(
       title: "The Quiz App",
-      theme: ThemeData(
-        primarySwatch: AppColors.WHITE,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
       defaultTransition: Transition.leftToRightWithFade,
       initialRoute: "/",
       getPages: routes(),
